@@ -6,14 +6,21 @@ public class Person
 {
 	private final int BLOCK_SIZE = 3; //ARBITRARY, SUBJECT TO CHANGE (max is hypothetically 8)
 	
-	private long publicKey;
-	private long privateKey;
+	private long publicKey;		// e
+	private long privateKey;	// d
+	private long publicMod;		// m
+	private long privateMod;	// n
 	private int p;
 	private int q;
 	
 	public long getPublicKey()
 	{
 		return publicKey;
+	}
+	
+	public long getpublicMod()
+	{
+		return publicMod;
 	}
 	
 	/**
