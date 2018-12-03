@@ -6,8 +6,8 @@ public class Person
 {
 	private final int BLOCK_SIZE = 3; //ARBITRARY, SUBJECT TO CHANGE (max is hypothetically 8)
 	
-	private long publicKey;		//m = p * q
-	private long privateKey;	//n = (p-1) * (q - 1)
+	private long publicKey;
+	private long privateKey;
 	private int p;
 	private int q;
 	
