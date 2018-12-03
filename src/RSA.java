@@ -111,7 +111,7 @@ public class RSA
 	 * @param n
 	 * @return
 	 */
-	private static long randomRelativePrime(long n)
+	public static long randomRelativePrime(long n)
 	{
 		return 0;
 	}
