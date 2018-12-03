@@ -141,7 +141,7 @@ public class RSA
 	 * TODO use standard out to display the data as a sequence of numbers
 	 * @param data
 	 */
-	private static void show(long[] data)
+	public static void show(long[] data)
 	{
 		
 	}	
