@@ -117,6 +117,27 @@ public class RSA
 	}
 	
 	/**
+	 * TODO return whether x is prime
+	 * @param x
+	 * @return
+	 */
+	private static boolean isPrime(long x)
+	{
+		return false;
+	}
+	
+	/**
+	 * TPDP return whether x is relatively prime to n
+	 * @param x
+	 * @param n
+	 * @return
+	 */
+	private static boolean isRelativelyPrime(long x, long n)
+	{
+		return false;
+	}
+	
+	/**
 	 * TODO use standard out to display the data as a sequence of numbers
 	 * @param data
 	 */
