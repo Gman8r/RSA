@@ -156,17 +156,6 @@ public class RSA
 	}
 	
 	/**
-	 * TODO helper method for multiplying several numbers together, modding them after each multiple
-	 * @param factors 
-	 * @param m
-	 * @return
-	 */
-	private static long modMult(long[] factors, long m)
-	{
-		return 0;
-	}
-	
-	/**
 	 * Helper method to return the proper mod of a number (no negatives)
 	 * @author Brian Intile
 	 * @param x The number to apply mod to
