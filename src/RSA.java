@@ -101,12 +101,13 @@ public class RSA
 	 */
 	private static long[] binaryPowers(long b, int exp2Max, long m)
 	{
-		//Initiate our return array, this will hold the value of b^(2^n) for each n in the array 
+		// Initiate our return array, this will hold the value of b^(2^n) for each n in the array 
 		long[] returnList = new long[exp2Max + 1];
 		long currentValue = b;
 		returnList[0] = b;	//b^(2^0) = b;
 		
-		//Square the current value and store it in the list 
+		
+		// Square the current value and store it in the list 
 		for(int i = 1; i <= exp2Max; i ++)
 		{
 			currentValue *= currentValue; //TODO Overflow handling???
@@ -136,7 +137,7 @@ public class RSA
 	 */
 	public static long trueMod(long x, long m)
 	{
-		//Use normal mod and add m if result is negative
+		// Use normal mod and add m if result is negative
 		x = x % m; 
 		return x < 0 ? x + m : x;
 	}
