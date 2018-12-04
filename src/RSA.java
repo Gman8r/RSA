@@ -62,15 +62,28 @@ public class RSA
 	}
 	
 	/**
-	 * TODO (https://dotnetfiddle.net/3nmJrF) helper function for modPower which computes b^n for every power of 2 up to exp2Max
+	 * Helper function for modPower which computes b^n for every power of 2 up to exp2Max
+	 * @author Brian Intile
 	 * @param b
 	 * @param exp2Max
 	 * @param m
 	 * @return
 	 */
-	private static long[] binaryPowers(long b, long exp2Max, long m)
+	private static long[] binaryPowers(long b, int exp2Max, long m)
 	{
-		return null;
+		//Initiate our return array, this will hold the value of b^(2^n) for each n in the array 
+		long[] returnList = new long[exp2Max + 1];
+		long currentValue = b;
+		returnList[0] = b;	//b^(2^0) = b;
+		
+		//Square the current value and store it in the list 
+		for(int i = 1; i <= exp2Max; i ++)
+		{
+			currentValue *= currentValue; //TODO Overflow handling???
+			currentValue %= m;
+			returnList[i] = currentValue;
+		}
+		return returnList;
 	}
 	
 	/**
