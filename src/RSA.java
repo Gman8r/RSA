@@ -120,9 +120,7 @@ public class RSA
             	// if so, subtract i by 1 and multiply the appropriate binary power into our result
                 currentPower -= iValue;
                 
-                result *= binaryPowers[i]; //TODO Overflow handling???
-                var moddedResult = result % m;
-                result = moddedResult;
+                result = modMult(result, binaryPowers[i], m); // Use modMult to calculate without overflow
             }
             iValue /= 2;
         }
@@ -148,8 +146,7 @@ public class RSA
 		// Square the current value and store it in the list 
 		for(int i = 1; i <= exp2Max; i ++)
 		{
-			currentValue *= currentValue; //TODO Overflow handling???
-			currentValue %= m;
+			currentValue = modMult(currentValue, currentValue, m); // Use modMult to square without overflow
 			returnList[i] = currentValue;
 		}
 		return returnList;
