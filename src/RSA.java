@@ -85,14 +85,17 @@ public class RSA
 	}
 	
 	/**
-	 * TODO helper method to return the proper mod of a number (no negatives
+	 * Helper method to return the proper mod of a number (no negatives
+	 * @author Brian Intile
 	 * @param x
 	 * @param m
 	 * @return
 	 */
 	public static long trueMod(long x, long m)
 	{
-		return 0;
+		//Use normal mod and add m if result is negative
+		x = x % m; 
+		return x < 0 ? x + m : x;
 	}
 	
 	/**
