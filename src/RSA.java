@@ -39,10 +39,11 @@ public class RSA
 	
 	
 	/**
-	 * TODO (https://dotnetfiddle.net/3nmJrF) use euclidian algorithm to find inv(x) mod m
-	 * @param x
-	 * @param m
-	 * @return
+	 * Calculates modular inverse using the Extended Euclidian Algorithm
+	 * @author Brian Intile
+	 * @param x The number to find the inverse of 
+	 * @param m	The mod to work in
+	 * @return The inverse of x mod m
 	 */
 	public static long modInverse(long x, long m) 
 	{
@@ -76,8 +77,8 @@ public class RSA
 	/**
 	 * Helper function for modInverse to update our size 2 archive arrays
 	 * @author Brian Intile
-	 * @param archive
-	 * @param newValue
+	 * @param archive The archive array
+	 * @param newValue The new value to be inserted
 	 */
 	private static void updateArchive(long[] archive, long newValue)
 	{
@@ -89,9 +90,9 @@ public class RSA
 	/**
 	 * TODO Raise b to the p power mod m
 	 * @autho Brian Intile
-	 * @param b
-	 * @param p
-	 * @param m
+	 * @param b The base
+	 * @param p The exponent to raise the base to
+	 * @param m	The mod to work in
 	 * @return The number b raised to the p power
 	 */
 	public static long modPower(long b, long p, long m)
@@ -131,10 +132,10 @@ public class RSA
 	/**
 	 * Helper function for modPower which computes b^n for every power of 2 up to exp2Max
 	 * @author Brian Intile
-	 * @param b
-	 * @param exp2Max
-	 * @param m
-	 * @return array of b^(2^n) for each n in the array
+	 * @param b The base
+	 * @param exp2Max The max n to calculate x = 2^n with
+	 * @param m	The mod to work in
+	 * @return Array of b^(2^n) for each n in the array
 	 */
 	private static long[] binaryPowers(long b, int exp2Max, long m)
 	{
@@ -166,11 +167,11 @@ public class RSA
 	}
 	
 	/**
-	 * Helper method to return the proper mod of a number (no negatives
+	 * Helper method to return the proper mod of a number (no negatives)
 	 * @author Brian Intile
-	 * @param x
-	 * @param m
-	 * @return the true mod
+	 * @param x The number to apply mod to
+	 * @param m	The mod to work in
+	 * @return The true mod of x
 	 */
 	public static long trueMod(long x, long m)
 	{
