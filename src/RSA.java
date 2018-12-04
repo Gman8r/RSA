@@ -50,15 +50,45 @@ public class RSA
 	}
 	
 	/**
-	 * TODO (https://dotnetfiddle.net/3nmJrF) raise b to the p power mod m
+	 * TODO Raise b to the p power mod m
+	 * @autho Brian Intile
 	 * @param b
 	 * @param p
 	 * @param m
-	 * @return
+	 * @return The number b raised to the p power
 	 */
 	public static long modPower(long b, long p, long m)
 	{
-		return 0;
+		// Calculate a max binary degree 2^n for us to calculate to
+		int maxBinaryDegree = 0;
+        while (Math.pow(2, maxBinaryDegree) <= p)
+        {
+            maxBinaryDegree++;
+        }
+        maxBinaryDegree--;
+        // Store the resulting binary powers in an array
+        long[] binaryPowers = binaryPowers(b, maxBinaryDegree, m);
+        
+        long result = 1;
+        long currentPower = p;
+        double iValue = Math.pow(2, maxBinaryDegree);	// iValue = 2^i (to save on re-calculating every time)
+        
+        // Iterate DOWN from maxBinaryDegree down to 0 to determine binary components for exponent 
+        for (int i = maxBinaryDegree; i >= 0; i--)
+        {
+        	// Starting with most significant digit, check if our current number is greater than 2^i 
+            if (currentPower >= iValue)
+            {
+            	// if so, subtract i by 1 and multiply the appropriate binary power into our result
+                currentPower -= iValue;
+                
+                result *= binaryPowers[i];
+                var moddedResult = result % m;
+                result = moddedResult;
+            }
+            iValue /= 2;
+        }
+        return result;
 	}
 	
 	/**
