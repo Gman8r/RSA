@@ -67,7 +67,7 @@ public class RSA
 	 * @param b
 	 * @param exp2Max
 	 * @param m
-	 * @return
+	 * @return array of b^(2^n) for each n in the array
 	 */
 	private static long[] binaryPowers(long b, int exp2Max, long m)
 	{
@@ -102,7 +102,7 @@ public class RSA
 	 * @author Brian Intile
 	 * @param x
 	 * @param m
-	 * @return
+	 * @return the true mod
 	 */
 	public static long trueMod(long x, long m)
 	{
