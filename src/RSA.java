@@ -89,7 +89,7 @@ public class RSA
 	
 	/**
 	 * TODO Raise b to the p power mod m
-	 * @autho Brian Intile
+	 * @author Brian Intile
 	 * @param b The base
 	 * @param p The exponent to raise the base to
 	 * @param m	The mod to work in
