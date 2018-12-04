@@ -47,6 +47,17 @@ public class RSA
 	public static long modInverse(long x, long m) 
 	{
 		return 0;
+	/**
+	 * Helper function for modInverse to update our size 2 archive arrays
+	 * @author Brian Intile
+	 * @param archive
+	 * @param newValue
+	 */
+	private static void updateArchive(long[] archive, long newValue)
+	{
+		// Shift the first value to the second position and add the new value in the first position
+		archive[1] = archive[0];
+		archive[0] = newValue;
 	}
 	
 	/**
