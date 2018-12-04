@@ -46,7 +46,33 @@ public class RSA
 	 */
 	public static long modInverse(long x, long m) 
 	{
-		return 0;
+		// Archive arrays that always hold the last 2 values of r, u, and v
+		long[] rArchive = {x, m};
+		long[] uArchive = {1, 0};
+		long[] vArchive = {0, 1};
+		
+		// Create an r variable and iterate down the algorithm until r is 1
+		long r;
+		do
+		{
+			r = rArchive[1] % rArchive[0];					// r = remainder of dividend of previous two r's
+			long q = rArchive[1] / rArchive[0];				// d = dividend  of previous two r's (using integer division)
+            long u = uArchive[1] - (uArchive[0] * q);		// u[n] = u[n-2] - (u[n-1] * q[n])
+            u = trueMod(u, m);
+            long v = vArchive[1] - (vArchive[0] * q);		// v[n] = v[n-2] - (v[n-1] * q[n])
+            v = trueMod(v, m);
+
+            // Update our archive arrays with new values
+            updateArchive(uArchive, u);
+            updateArchive(vArchive, v);
+            updateArchive(rArchive, r);
+		}
+		while (r != 1);
+		
+		//Our last u value is the inverse
+		return uArchive[0];
+	}
+	
 	/**
 	 * Helper function for modInverse to update our size 2 archive arrays
 	 * @author Brian Intile
