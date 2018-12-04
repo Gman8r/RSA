@@ -120,7 +120,7 @@ public class RSA
             	// if so, subtract i by 1 and multiply the appropriate binary power into our result
                 currentPower -= iValue;
                 
-                result *= binaryPowers[i];
+                result *= binaryPowers[i]; //TODO Overflow handling???
                 var moddedResult = result % m;
                 result = moddedResult;
             }
