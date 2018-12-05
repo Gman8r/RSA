@@ -143,10 +143,22 @@ public class RSA
 	
 	/**
 	 * TODO use standard out to display the data as a sequence of numbers
+	 * @author Justin Davis
 	 * @param data
 	 */
 	public static void show(long[] data)
 	{
 		
 	}	
+	
+	public static String longTo2Chars(long x) {
+		
+		return null;
+	}
+	
+	public static long toLong(String msg, int p) {
+		return p;
+	}
+	
+	
 }
