@@ -130,15 +130,28 @@ public class RSA
 	}
 	
 	/**
-	 * TODO return whether x is relatively prime to n
+	 * Determine whether or not two longs are relative prime.
+	 * This means their gcd is 1.
+	 * This method uses the Euclidean Algorithm to determien the gcd.
+	 * 
 	 * @author Justin Davis
-	 * @param x
-	 * @param n
-	 * @return
+	 * @param x one long
+	 * @param n another long
+	 * @return whether or not the two longs are relatively prime
 	 */
 	private static boolean isRelativelyPrime(long x, long n)
 	{
-		return false;
+		long a = x, b = n, r = 2; //r initially set to 2 so it can enter the loop
+		if(x < n) { //n is larger; swap the values to perform gcd
+			a = n;
+			b = x;
+		}
+		while(r != 0) {
+			r = a%b;
+			a = b;
+			b = r;
+		}
+		return (a == 1) ? true : false;
 	}
 	
 	/**
