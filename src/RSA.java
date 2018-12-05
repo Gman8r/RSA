@@ -115,7 +115,7 @@ public class RSA
         
         long result = 1;
         long currentPower = p;
-        double iValue = Math.pow(2, maxBinaryDegree);	// iValue = 2^i (to save on re-calculating every time)
+        long iValue = (long)Math.pow(2, maxBinaryDegree);	// iValue = 2^i (to save on re-calculating every time)
         
         // Iterate DOWN from maxBinaryDegree down to 0 to determine binary components for exponent 
         for (int i = maxBinaryDegree; i >= 0; i--)
