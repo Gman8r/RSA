@@ -97,6 +97,7 @@ public class RSA
 	
 	/**
 	 * TODO return a random prime number between min and max
+	 * @author Justin Davis
 	 * @param minValue
 	 * @param maxValue
 	 * @return
@@ -108,6 +109,7 @@ public class RSA
 	
 	/**
 	 * TODO return a random number relatively prime to n, less than n
+	 * @author Justin Davis
 	 * @param n
 	 * @return
 	 */
@@ -118,6 +120,7 @@ public class RSA
 	
 	/**
 	 * TODO return whether x is prime
+	 * @author Justin Davis
 	 * @param x
 	 * @return
 	 */
@@ -127,7 +130,8 @@ public class RSA
 	}
 	
 	/**
-	 * TPDP return whether x is relatively prime to n
+	 * TODO return whether x is relatively prime to n
+	 * @author Justin Davis
 	 * @param x
 	 * @param n
 	 * @return
