@@ -1,4 +1,4 @@
-
+package RSA;
 /**
  * TODO Class Documentation
  */
@@ -9,13 +9,21 @@ public class Person
 	private long publicKey;
 	private long privateKey;
 	private long publicMod;
-	
-	public long getPublicKey()
+
+	/**
+	 * Access the public encryption exponent
+	 * @return public encryption exponent
+	 */
+	public long getE()
 	{
 		return publicKey;
 	}
-	
-	public long getpublicMod()
+
+	/**
+	 * Access the public modulus
+	 * @return public modulus
+	 */
+	public long getM()
 	{
 		return publicMod;
 	}
@@ -30,12 +38,16 @@ public class Person
 	
 	/**
 	 * TODO encrypt a message using the recipient's public key (use BLOCK_SIZE)
-	 * @param msg
-	 * @param recipient
-	 * @return
+	 * @param msg plain text to be encrypted
+	 * @param recipient person to encrypt message to
+	 * @return encrypted long array
 	 */
 	public long[] encryptTo(String msg, Person recipient)
 	{
+		long recipE = recipient.getE();
+		long recipM = recipient.getM();
+
+
 		return null;
 	}
 	
