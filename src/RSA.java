@@ -8,12 +8,11 @@ import java.util.*;	// Random number generator
 public class RSA
 {  
 
-	private static Random rand = new Random();
+	private final int BLOCK_SIZE = 3; //ARBITRARY, SUBJECT TO CHANGE (max is hypothetically 8)
 
 	//Bergmann's driver
 	public static void main (String args[])
-	{ 	
-		/**
+	{ 	/**
 		Person Alice = new Person();
 		Person Bob = new Person();
 
@@ -37,7 +36,9 @@ public class RSA
 		show (cipher);
 
 		System.out.println ("Alice decodes and reads: " + Alice.decrypt (cipher));
-		 **/
+		**/
+		long[] l = {123, 456, 789, 111, 135};
+		RSA.show(l);
 	}
 
 
@@ -107,7 +108,7 @@ public class RSA
 	 * @param maxValue the upper end of the range
 	 * @return a random prime between minValue and MaxValue
 	 */
-	public static long randomPrime(long minValue, long maxValue)
+	public static long randomPrime(long minValue, long maxValue, Random rand)
 	{
 		//first calculates a random double; value in the range [0,1.0)
 		//then multiplies it by the range of values for our prime
@@ -125,7 +126,7 @@ public class RSA
 	 * @param a long value
 	 * @return a random relatively prime number less than n
 	 */
-	public static long randomRelativePrime(long n)
+	public static long randomRelativePrime(long n, Random rand)
 	{
 		//first calculates a random double; value in the range [0,1.0)
 		//then multiplies it by the value of n
@@ -182,13 +183,19 @@ public class RSA
 	}
 
 	/**
-	 * TODO use standard out to display the data as a sequence of numbers
+	 * Use standard out to display the data as a sequence of numbers
+	 * 
 	 * @author Justin Davis
-	 * @param data
+	 * @param data an array of long values
 	 */
 	public static void show(long[] data)
 	{
-
+		int size = data.length;
+		String allData = "";
+		for(int i = 0; i < size; i++) {
+			allData += data[i] + ", ";
+		}
+		System.out.println(allData.substring(0, allData.length()-2));
 	}	
 
 	public static String longTo2Chars(long x) {
