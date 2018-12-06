@@ -8,7 +8,7 @@ import java.util.*;	// Random number generator
 public class RSA
 {  
 
-	private final int BLOCK_SIZE = 3; //ARBITRARY, SUBJECT TO CHANGE (max is hypothetically 8)
+	private static final int BLOCK_SIZE = 3; //ARBITRARY, SUBJECT TO CHANGE (max is hypothetically 8)
 
 	//Bergmann's driver
 	public static void main (String args[])
@@ -37,7 +37,7 @@ public class RSA
 
 		System.out.println ("Alice decodes and reads: " + Alice.decrypt (cipher));
 		**/
-		System.out.println(RSA.toLong("zZa", 0, 3));
+		//System.out.println(RSA.toLong("z", 0, 1));
 	}
 
 
@@ -203,6 +203,13 @@ public class RSA
 		return null;
 	}
 
+	/**
+	 * Adds zeros to the front of a binary String until it has 8 bits (a byte)
+	 * 
+	 * @author Justin Davis
+	 * @param bitString String that needs to be padded
+	 * @return a binary String padded with zeros
+	 */
 	private static String addPadding(String bitString) {
 		while(bitString.length() < 8) {
 			bitString = '0' + bitString;
@@ -220,10 +227,17 @@ public class RSA
 	 * @return the two digit number beginning at position p of msg as a long
 	 */
 	public static long toLong(String msg, int p, int n) {
+		if(n > BLOCK_SIZE) {
+			throw new IllegalArgumentException("n CANNOT be larger than max block size of " + BLOCK_SIZE);
+		}
+		if (n > msg.length()) {
+			throw new IllegalArgumentException("n CANNOT be larger than the length of the message");
+		}
 		String bits = "";
 		//goes through the String and adds the byte of each char - this creates a String of bits
 		//each successive byte gets added to the end
 		//adds padding to the front of the binary number if it does not contain 8 bits
+		int msgSize = msg.length();
 		for(int i = 0; i < n; i++) {
 			bits += addPadding(Integer.toBinaryString(msg.charAt(p+i)));
 		}
