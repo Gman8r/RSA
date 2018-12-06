@@ -173,12 +173,12 @@ public class RSA
 			a = n;
 			b = x;
 		}
-		while(r != 0) { //while our remainder
+		while(r != 0) { //the reaminder still is not equal to zero
 			r = a%b;
 			a = b;
 			b = r;
 		}
-		return (a == 1) ? true : false;
+		return (a == 1) ? true : false; //true if gcd is 1, or false if it is not
 	}
 
 	/**
