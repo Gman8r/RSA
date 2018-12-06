@@ -210,7 +210,16 @@ public class RSA
 		return bitString;
 	}
 	
-	public static long toLong(String msg, int p) {
+	/**
+	 * Converts two numeric chars to long
+	 * 
+	 * @author Justin Davis
+	 * @param msg String containing chars that need to be covnerted
+	 * @param p position where we will start converting chars
+	 * @param n number of characters we will convert
+	 * @return he two digit number beginning at position p of msg as a long
+	 */
+	public static long toLong(String msg, int p, int n) {
 		char charOne = msg.charAt(p);
 		char charTwo = msg.charAt(p+1);
 		String bits = (addPadding(Integer.toBinaryString(charOne)).concat(addPadding(Integer.toBinaryString(charTwo)))).trim();
