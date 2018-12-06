@@ -113,9 +113,11 @@ public class Person
 		StringBuffer buff = new StringBuffer();
 		for(int i = 0; i < message.length(); i++)
 		{
-			currentBlock = message[i];
-			plainBlock = RSA.modPower(currentBlock, privateKey, publicMod);
-			buff.append(RSA.longToNChars(plainBlock));
+			if(message[i] != null) {
+				currentBlock = message[i];
+				plainBlock = RSA.modPower(currentBlock, privateKey, publicMod);
+				buff.append(RSA.longToNChars(plainBlock));
+			}
 		}
 
 		return buff.toString();
