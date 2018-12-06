@@ -37,10 +37,6 @@ public class RSA
 
 		System.out.println ("Alice decodes and reads: " + Alice.decrypt (cipher));
 		**/
-		//System.out.println(RSA.toLong("z", 0, 1));
-		long l = 342762L;
-		System.out.println(Long.toBinaryString(l));
-		System.out.println(addPadding(Long.toBinaryString(l)));
 	}
 
 
@@ -201,8 +197,25 @@ public class RSA
 		System.out.println(allData.substring(0, allData.length()-2));
 	}	
 
+	/**
+	 * Convert a long to n chars, where n is the block size of the message
+	 * 
+	 * @param x the long that will be converted to a String of chars
+	 * @return The string made up of n numeric digits representing x
+	 */
 	public static String longToNChars(long x) {
-		return null;
+		String bits = addPadding(Long.toBinaryString(x));
+		int numChars = bits.length()/8;
+		String chars = "";
+		for(int i = 0; i < numChars; i++) {
+			int currByte = 0;
+			for(int j = 0; j < 8; j++) {
+				currByte +=  (1 << (j))*Integer.parseInt(bits.substring((i*8) + 8-(j+1),(i*8) + 8-j));
+			}			
+			System.out.println(currByte);
+			chars += Character.toString((char) currByte); 
+		}
+		return chars;
 	}
 
 	/**
@@ -232,8 +245,11 @@ public class RSA
 		if(n > BLOCK_SIZE) {
 			throw new IllegalArgumentException("n CANNOT be larger than max block size of " + BLOCK_SIZE);
 		}
-		if (n > msg.length()) {
+		if(n > msg.length()) {
 			throw new IllegalArgumentException("n CANNOT be larger than the length of the message");
+		}
+		if(p+n > msg.length()) {
+			throw new IllegalArgumentException("this n will extend past the length of the String");
 		}
 		String bits = "";
 		//goes through the String and adds the byte of each char - this creates a String of bits
