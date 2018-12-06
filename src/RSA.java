@@ -200,6 +200,7 @@ public class RSA
 	/**
 	 * Convert a long to n chars, where n is the block size of the message
 	 * 
+	 * @author Justin Davis
 	 * @param x the long that will be converted to a String of chars
 	 * @return The string made up of n numeric digits representing x
 	 */
@@ -259,7 +260,6 @@ public class RSA
 		//goes through the String and adds the byte of each char - this creates a String of bits
 		//each successive byte gets added to the end
 		//adds padding to the front of the binary number if it does not contain 8 bits
-		int msgSize = msg.length();
 		for(int i = 0; i < n; i++) {
 			bits += addPadding(Integer.toBinaryString(msg.charAt(p+i)));
 		}
