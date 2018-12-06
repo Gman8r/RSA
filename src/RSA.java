@@ -37,7 +37,7 @@ public class RSA
 
 		System.out.println ("Alice decodes and reads: " + Alice.decrypt (cipher));
 		**/
-		System.out.println(RSA.toLong("zZ", 0));
+		System.out.println(RSA.toLong("zZa", 0, 3));
 	}
 
 
@@ -214,21 +214,25 @@ public class RSA
 	 * Converts two numeric chars to long
 	 * 
 	 * @author Justin Davis
-	 * @param msg String containing chars that need to be covnerted
+	 * @param msg String containing chars that need to be converted
 	 * @param p position where we will start converting chars
 	 * @param n number of characters we will convert
-	 * @return he two digit number beginning at position p of msg as a long
+	 * @return the two digit number beginning at position p of msg as a long
 	 */
 	public static long toLong(String msg, int p, int n) {
-		char charOne = msg.charAt(p);
-		char charTwo = msg.charAt(p+1);
-		String bits = (addPadding(Integer.toBinaryString(charOne)).concat(addPadding(Integer.toBinaryString(charTwo)))).trim();
-		long converted = 0;
+		String bits = "";
+		//goes through the String and adds the byte of each char - this creates a String of bits
+		//each successive byte gets added to the end
+		//adds padding to the front of the binary number if it does not contain 8 bits
+		for(int i = 0; i < n; i++) {
+			bits += addPadding(Integer.toBinaryString(msg.charAt(p+i)));
+		}
+		long converted = 0; //variable storing value of converted long
 		int size = bits.length();
-		System.out.println(bits);
+		//goes through list of bits starting at least significant
+		//multiplies each bit by the 2's complement value according to its position
 		for(int i = 0; i < size; i++) {
 			converted += (1 << (i))*Long.parseLong(bits.substring(size-i-1, size-i));
-			System.out.println("current bit: " + bits.substring(size-i-1, size-i));
 		}
 		return converted;
 	}
