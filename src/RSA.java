@@ -7,10 +7,13 @@ import java.util.*;	// Random number generator
  */
 public class RSA
 {  
-	
+
+	private static Random rand = new Random();
+
 	//Bergmann's driver
 	public static void main (String args[])
 	{ 	
+		/**
 		Person Alice = new Person();
 		Person Bob = new Person();
 
@@ -28,16 +31,19 @@ public class RSA
 
 		msg = new String ("No thanks, I'm busy");
 		cipher = Bob.encryptTo (msg, Alice);
-		
+
 		System.out.println ("Message is: " + msg);
 		System.out.println ("Bob sends:");
 		show (cipher);
 
 		System.out.println ("Alice decodes and reads: " + Alice.decrypt (cipher));
+		 **/
+		long test = 34509382L;
+		System.out.println(randomRelativePrime(test));
 	}
-	
-	
-	
+
+
+
 	/**
 	 * TODO (https://dotnetfiddle.net/3nmJrF) use euclidian algorithm to find inv(x) mod m
 	 * @param x
@@ -48,7 +54,7 @@ public class RSA
 	{
 		return 0;
 	}
-	
+
 	/**
 	 * TODO (https://dotnetfiddle.net/3nmJrF) raise b to the p power mod m
 	 * @param b
@@ -60,7 +66,7 @@ public class RSA
 	{
 		return 0;
 	}
-	
+
 	/**
 	 * TODO (https://dotnetfiddle.net/3nmJrF) helper function for modPower which computes b^n for every power of 2 up to exp2Max
 	 * @param b
@@ -72,7 +78,7 @@ public class RSA
 	{
 		return null;
 	}
-	
+
 	/**
 	 * TODO helper method for multiplying several numbers together, modding them after each multiple
 	 * @param factors 
@@ -83,7 +89,7 @@ public class RSA
 	{
 		return 0;
 	}
-	
+
 	/**
 	 * TODO helper method to return the proper mod of a number (no negatives
 	 * @param x
@@ -94,30 +100,44 @@ public class RSA
 	{
 		return 0;
 	}
-	
+
 	/**
-	 * TODO return a random prime number between min and max
+	 * Generates a random prime number in the range minValue to maxValue.
+	 * 
 	 * @author Justin Davis
-	 * @param minValue
-	 * @param maxValue
-	 * @return
+	 * @param minValue the lower end of the range
+	 * @param maxValue the upper end of the range
+	 * @return a random prime between minValue and MaxValue
 	 */
 	public static long randomPrime(long minValue, long maxValue)
 	{
-		return 0;
+		//first calculates a random double; value in the range [0,1.0)
+		//then multiplies it by the range of values for our prime
+		long randRelPrime = (long) (minValue + (rand.nextDouble()*(maxValue-minValue)));
+		while(!isPrime(randRelPrime)) { //will repeat while the random prime generated is not prime
+			randRelPrime = (long) (minValue + (rand.nextDouble()*(maxValue-minValue)));
+		}
+		return randRelPrime;
 	}
-	
+
 	/**
-	 * TODO return a random number relatively prime to n, less than n
+	 * Generates a random long relatively prime to n; it is also less than n
+	 * 
 	 * @author Justin Davis
-	 * @param n
-	 * @return
+	 * @param a long value
+	 * @return a random relatively prime number less than n
 	 */
 	public static long randomRelativePrime(long n)
 	{
-		return 0;
+		//first calculates a random double; value in the range [0,1.0)
+		//then multiplies it by the value of n
+		long randRelPrime = (long) (rand.nextDouble()*n);
+		while(!isRelativelyPrime(n, randRelPrime)) { //will repeat while the random relative prime generated is not relatively prime to n
+			randRelPrime = (long) (rand.nextDouble()*n);
+		}
+		return randRelPrime;
 	}
-	
+
 	/**
 	 * TODO return whether x is prime
 	 * @author Justin Davis
@@ -128,11 +148,11 @@ public class RSA
 	{
 		return false;
 	}
-	
+
 	/**
 	 * Determine whether or not two longs are relative prime.
 	 * This means their gcd is 1.
-	 * This method uses the Euclidean Algorithm to determien the gcd.
+	 * This method uses the Euclidean Algorithm to determine the gcd.
 	 * 
 	 * @author Justin Davis
 	 * @param x one long
@@ -146,14 +166,14 @@ public class RSA
 			a = n;
 			b = x;
 		}
-		while(r != 0) {
+		while(r != 0) { //while our remainder
 			r = a%b;
 			a = b;
 			b = r;
 		}
 		return (a == 1) ? true : false;
 	}
-	
+
 	/**
 	 * TODO use standard out to display the data as a sequence of numbers
 	 * @author Justin Davis
@@ -161,17 +181,17 @@ public class RSA
 	 */
 	public static void show(long[] data)
 	{
-		
+
 	}	
-	
+
 	public static String longTo2Chars(long x) {
-		
+
 		return null;
 	}
-	
+
 	public static long toLong(String msg, int p) {
 		return p;
 	}
-	
-	
+
+
 }
