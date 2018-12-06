@@ -38,8 +38,6 @@ public class RSA
 
 		System.out.println ("Alice decodes and reads: " + Alice.decrypt (cipher));
 		 **/
-		long test = 34509382L;
-		System.out.println(randomRelativePrime(test));
 	}
 
 
@@ -139,14 +137,23 @@ public class RSA
 	}
 
 	/**
-	 * TODO return whether x is prime
+	 * Determines whether a given long is prime or not
+	 * 
 	 * @author Justin Davis
-	 * @param x
-	 * @return
+	 * @param a long value
+	 * @return whether or not a long is prime
 	 */
 	private static boolean isPrime(long x)
 	{
-		return false;
+		boolean prime = true;
+		//i initially starts at 2 since any number divided by 1 will have a remainder of zero
+		//only checking up to x/2 because anything larger would result in a value less than 2 (some fractional number)
+		for(int i = 2; prime && i <= x/2; i++) {
+			if(x%i == 0) { //if the long is divisible by the current value of i, it is not prime
+				prime = false;
+			}
+		}
+		return prime;
 	}
 
 	/**
