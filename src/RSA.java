@@ -38,6 +38,9 @@ public class RSA
 		System.out.println ("Alice decodes and reads: " + Alice.decrypt (cipher));
 		**/
 		//System.out.println(RSA.toLong("z", 0, 1));
+		long l = 342762L;
+		System.out.println(Long.toBinaryString(l));
+		System.out.println(addPadding(Long.toBinaryString(l)));
 	}
 
 
@@ -198,8 +201,7 @@ public class RSA
 		System.out.println(allData.substring(0, allData.length()-2));
 	}	
 
-	public static String longTo2Chars(long x) {
-
+	public static String longToNChars(long x) {
 		return null;
 	}
 
@@ -211,14 +213,14 @@ public class RSA
 	 * @return a binary String padded with zeros
 	 */
 	private static String addPadding(String bitString) {
-		while(bitString.length() < 8) {
+		while(bitString.length()%8 != 0) {
 			bitString = '0' + bitString;
 		}
 		return bitString;
 	}
 	
 	/**
-	 * Converts two numeric chars to long
+	 * Converts a specified number of numeric chars, n, to a long
 	 * 
 	 * @author Justin Davis
 	 * @param msg String containing chars that need to be converted
