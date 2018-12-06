@@ -161,7 +161,8 @@ public class RSA
 	
 	/**
 	 * Algorithm that performs modular multiplication and mitigates overflow
-	 * <br>The max value for a, b, and m is now (long.MAX_VALUE / 2) instead of (sqrt(long.MAX_VALUE)) if we were to directly multiply  
+	 * <br>The max value for a, b, and m is now (long.MAX_VALUE / 2) instead of (sqrt(long.MAX_VALUE)) if we were to directly multiply
+	 * <br>TODO stress-testing to figure out if this is worth it
 	 * @author Brian Intile
 	 * @param a The first number to multiply (mod m)
 	 * @param b The second number to multiply (mod m)
