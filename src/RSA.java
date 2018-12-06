@@ -204,15 +204,19 @@ public class RSA
 	 * @return The string made up of n numeric digits representing x
 	 */
 	public static String longToNChars(long x) {
-		String bits = addPadding(Long.toBinaryString(x));
-		int numChars = bits.length()/8;
+		String bits = addPadding(Long.toBinaryString(x)); //pads zeros to the binary String until it is a multiple of 8
+		int numChars = bits.length()/8; //how many chars (bytes) we will have in the String
 		String chars = "";
+		//for each byte, we will find the integer value it represents
 		for(int i = 0; i < numChars; i++) {
 			int currByte = 0;
+			//for each byte, we will determine the int value of its twos complement representation
+			//starts at the least significant bit
+			//uses i to determine which byte we are looking at
 			for(int j = 0; j < 8; j++) {
 				currByte +=  (1 << (j))*Integer.parseInt(bits.substring((i*8) + 8-(j+1),(i*8) + 8-j));
-			}			
-			System.out.println(currByte);
+			}
+			//adds the current char to the String
 			chars += Character.toString((char) currByte); 
 		}
 		return chars;
