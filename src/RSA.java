@@ -37,8 +37,7 @@ public class RSA
 
 		System.out.println ("Alice decodes and reads: " + Alice.decrypt (cipher));
 		**/
-		long[] l = {123, 456, 789, 111, 135};
-		RSA.show(l);
+		System.out.println(RSA.toLong("zZ", 0));
 	}
 
 
@@ -193,6 +192,7 @@ public class RSA
 		int size = data.length;
 		String allData = "";
 		for(int i = 0; i < size; i++) {
+			//adds each long value in the array to the String and separates them by a comma
 			allData += data[i] + ", ";
 		}
 		System.out.println(allData.substring(0, allData.length()-2));
@@ -203,8 +203,25 @@ public class RSA
 		return null;
 	}
 
+	private static String addPadding(String bitString) {
+		while(bitString.length() < 8) {
+			bitString = '0' + bitString;
+		}
+		return bitString;
+	}
+	
 	public static long toLong(String msg, int p) {
-		return p;
+		char charOne = msg.charAt(p);
+		char charTwo = msg.charAt(p+1);
+		String bits = (addPadding(Integer.toBinaryString(charOne)).concat(addPadding(Integer.toBinaryString(charTwo)))).trim();
+		long converted = 0;
+		int size = bits.length();
+		System.out.println(bits);
+		for(int i = 0; i < size; i++) {
+			converted += (1 << (i))*Long.parseLong(bits.substring(size-i-1, size-i));
+			System.out.println("current bit: " + bits.substring(size-i-1, size-i));
+		}
+		return converted;
 	}
 
 
