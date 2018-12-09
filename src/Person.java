@@ -14,8 +14,8 @@ import java.util.Random;
 public class Person
 {
 	private final int BLOCK_SIZE = 2; //ARBITRARY, SUBJECT TO CHANGE (max is hypothetically 8)
-	private final long MAX_PRIME_VAL = 1500; //needs alot more testing
-	private final long MIN_PRIME_VAL = 35;
+	private final long MAX_PRIME_VAL = 1500000; //needs alot more testing
+	private final long MIN_PRIME_VAL = 350;
 	private long publicKey;
 	private long privateKey;
 	private long publicMod;
@@ -86,7 +86,12 @@ public class Person
 
 		int ndx = 0;		//keeping track of actual msg index
 		int blockNDX = 0;	//keeping track of blockArr index
-                 
+                
+                //adding spaces to serve as padding for now
+                while (msg.length() % BLOCK_SIZE > 0)
+                {
+                    msg += " ";
+                }
                 
 		while(ndx < msg.length()) {
                         if(ndx + BLOCK_SIZE > msg.length())
