@@ -13,9 +13,10 @@ import java.util.Random;
 
 public class Person
 {
-	private final int BLOCK_SIZE = 2; //ARBITRARY, SUBJECT TO CHANGE (max is hypothetically 8)
-	private final long MAX_PRIME_VAL = 1500000; //needs alot more testing
-	private final long MIN_PRIME_VAL = 350;
+        
+	private final int BLOCK_SIZE = 4; //ARBITRARY, SUBJECT TO CHANGE (max is hypothetically 8)
+	private final long MAX_PRIME_VAL = (long)Math.pow(256, BLOCK_SIZE); 
+	private final long MIN_PRIME_VAL = (long)Math.ceil((long)Math.sqrt(MAX_PRIME_VAL));
 	private long publicKey;
 	private long privateKey;
 	private long publicMod;
@@ -45,15 +46,15 @@ public class Person
 	public Person()
 	{
             Random rand = new Random();
-		//p and q will need to have their max values adjusted, this is temporary to keep it fast in testing
 		long p = RSA.randomPrime(MIN_PRIME_VAL, MAX_PRIME_VAL, rand);
 		long q = RSA.randomPrime(MIN_PRIME_VAL, MAX_PRIME_VAL, rand);
-
+                System.out.println("min: " + MIN_PRIME_VAL + ", max:" + MAX_PRIME_VAL);
 		while(p == q) //just in case
 		{
 			q = RSA.randomPrime(MIN_PRIME_VAL, MAX_PRIME_VAL, rand);
 		}
-
+                
+                System.out.println("p: " + p + ", q:" + q);
 		publicMod = p * q;   //TODO: need to add overflow check when dealing with larger primes
 		publicKey = RSA.randomRelativePrime((p - 1) * (q - 1), rand);
 
