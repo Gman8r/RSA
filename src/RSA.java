@@ -110,10 +110,11 @@ public class RSA
 	{
 		//first calculates a random double; value in the range [0,1.0)
 		//then multiplies it by the range of values for our prime
-		long randRelPrime = (long) (minValue + (rand.nextDouble()*(maxValue-minValue)));
-		while(!isPrime(randRelPrime)) { //will repeat while the random prime generated is not prime
+		long randRelPrime = 0;
+		do {
 			randRelPrime = (long) (minValue + (rand.nextDouble()*(maxValue-minValue)));
 		}
+		while(!isPrime(randRelPrime)); //will repeat while the random prime generated is not prime
 		return randRelPrime;
 	}
 
@@ -128,10 +129,11 @@ public class RSA
 	{
 		//first calculates a random double; value in the range [0,1.0)
 		//then multiplies it by the value of n
-		long randRelPrime = (long) (rand.nextDouble()*n);
-		while(!isRelativelyPrime(n, randRelPrime)) { //will repeat while the random relative prime generated is not relatively prime to n
+		long randRelPrime = 0;
+		do {
 			randRelPrime = (long) (rand.nextDouble()*n);
 		}
+		while(!isRelativelyPrime(n, randRelPrime)); //will repeat while the random relative prime generated is not relatively prime to n
 		return randRelPrime;
 	}
 
