@@ -108,7 +108,7 @@ public class Person
 		while(ndx < msg.length()) {
                         if(ndx + BLOCK_SIZE > msg.length())
                         {
-                            block = RSA.toLong(msg, ndx, 1);
+                            block = RSA.toLong(msg, ndx, ndx + BLOCK_SIZE - msg.length());
                         }
                         else{
                             block = RSA.toLong(msg, ndx, BLOCK_SIZE);
