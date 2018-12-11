@@ -14,9 +14,9 @@ import java.util.Random;
 public class Person
 {
         
-	private final int BLOCK_SIZE = 4; //ARBITRARY, SUBJECT TO CHANGE (max is hypothetically 8)
-	private final long MAX_PRIME_VAL = (long)Math.pow(256, BLOCK_SIZE); 
-	private final long MIN_PRIME_VAL = (long)Math.ceil((long)Math.sqrt(MAX_PRIME_VAL));
+	private final int BLOCK_SIZE = 2; //ARBITRARY, SUBJECT TO CHANGE (max is hypothetically 8)
+	private final long MAX_PRIME_VAL =  (long)Math.sqrt(Long.MAX_VALUE / 2);//(long)Math.ceil((long)Math.sqrt((long)Math.pow(256, BLOCK_SIZE))); 
+	private final long MIN_PRIME_VAL = 33;//(long)Math.ceil((long)Math.sqrt(MAX_PRIME_VAL));
 	private long publicKey;
 	private long privateKey;
 	private long publicMod;
@@ -45,23 +45,33 @@ public class Person
 	 */
 	public Person()
 	{
-            Random rand = new Random();
-		long p = RSA.randomPrime(MIN_PRIME_VAL, MAX_PRIME_VAL, rand);
-		long q = RSA.randomPrime(MIN_PRIME_VAL, MAX_PRIME_VAL, rand);
+            boolean degenerate = true;  //initially assume keys are degenerate
+            long p = 0;
+            long q = 0;
+            while(degenerate)   //should only have to run once
+            {
+                Random rand = new Random();
+                p = RSA.randomPrime(MIN_PRIME_VAL, MAX_PRIME_VAL, rand);
+                q = RSA.randomPrime(MIN_PRIME_VAL, MAX_PRIME_VAL, rand);
                 System.out.println("min: " + MIN_PRIME_VAL + ", max:" + MAX_PRIME_VAL);
-		while(p == q) //just in case
-		{
-			q = RSA.randomPrime(MIN_PRIME_VAL, MAX_PRIME_VAL, rand);
-		}
-                
-                System.out.println("p: " + p + ", q:" + q);
-		publicMod = p * q;   //TODO: need to add overflow check when dealing with larger primes
-		publicKey = RSA.randomRelativePrime((p - 1) * (q - 1), rand);
+                while(p == q) //just in case
+                {
+                        q = RSA.randomPrime(MIN_PRIME_VAL, MAX_PRIME_VAL, rand);
+                }
 
-		long privateHelper = (p-1) * (q-1);
+                //System.out.println("p: " + p + ", q:" + q);
+                publicMod = p * q;   //TODO: need to add overflow check when dealing with larger primes
+                publicKey = RSA.randomRelativePrime((p - 1) * (q - 1), rand);
+               
+                if(lcm((p - 1), (q - 1)) % (publicKey - 1) != 0)
+                {
+                    degenerate = false; //they arent degenerate, break out
+                }
+            }
+            long privateHelper = (p-1) * (q-1);
                 
-		privateKey = RSA.modInverse(publicKey, privateHelper);    // d = e-1 (mod (p-1)*(q-1))
-                System.out.println("priv" + privateKey + ", pub: " + p + " & " + q + " is " + publicMod + " with key " + publicKey);
+            privateKey = RSA.modInverse(publicKey, privateHelper);    // d = e-1 (mod (p-1)*(q-1))
+            System.out.println("priv" + privateKey + ", pub: " + p + " & " + q + " is " + publicMod + " with key " + publicKey);
         }
 
 	/**
@@ -75,7 +85,7 @@ public class Person
 	{
 		long recipE = recipient.getE();     //recips exp
 		long recipM = recipient.getM();		//recips mod
-
+                msg += "1";
 		int blockArrLength = msg.length() / BLOCK_SIZE;	//arr size
                 if(msg.length() % BLOCK_SIZE > 0)
                 {
@@ -89,9 +99,10 @@ public class Person
 		int blockNDX = 0;	//keeping track of blockArr index
                 
                 //adding spaces to serve as padding for now
+                
                 while (msg.length() % BLOCK_SIZE > 0)
                 {
-                    msg += " ";
+                    msg += "0";
                 }
                 
 		while(ndx < msg.length()) {
@@ -121,6 +132,20 @@ public class Person
 
 		//}
 	}
+        
+        private long lcm(long x, long y)
+        {
+            return (x * y) / (gcd(x, y));
+        }
+        
+        private long gcd(long x, long y)
+        {
+            if(y == 0)
+            {
+                return x; 
+            }
+            return gcd(y, x  % y);
+        }
 
 	/**
 	 * Decrypt the cipher text
@@ -128,7 +153,7 @@ public class Person
 	 * @return plain text of the encrypted message
 	 * @author aaron alnutt
 	 */
-	public String decrypt(long[] message)
+	public String decrypt(long[] message) throws Exception
 	{
 		long currentBlock = 0;
 		long plainBlock = 0;
@@ -142,8 +167,24 @@ public class Person
 				buff.append(RSA.longToNChars(plainBlock));
 			//}
 		}
-
-		return buff.toString();
+                String paddedString = buff.toString();
+                if(paddedString.charAt(paddedString.length() - 1) == '0')
+                {
+                    while(paddedString.charAt(paddedString.length() - 1) == '0')
+                    {
+                         paddedString = paddedString.substring(0, paddedString.length() - 1);
+                    }
+                    paddedString = paddedString.substring(0, paddedString.length() - 1);
+                }
+                else if(paddedString.charAt(paddedString.length() - 1) == '1')
+                {
+                    paddedString = paddedString.substring(0, paddedString.length() - 1);
+                }
+                else{ //there was no 0 or 1 so don't try to remove padding
+                    throw new Exception("given cipher is not in the correct format");
+                }
+                
+		return paddedString;
 	}
 
 }
