@@ -270,7 +270,7 @@ public class RSA
 		//goes through list of bits starting at least significant
 		//multiplies each bit by the 2's complement value according to its position
 		for(int i = 0; i < size; i++) {
-			converted += (1 << (i))*Long.parseLong(bits.substring(size-i-1, size-i));
+			converted += (1l << (i))*Long.parseLong(bits.substring(size-i-1, size-i));
 		}
 		return converted;
 	}
