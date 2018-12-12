@@ -133,6 +133,7 @@ public class RSA
 	 * @author Justin Davis
 	 * @param minValue the lower end of the range
 	 * @param maxValue the upper end of the range
+	 * @param rand a pseudorandom number generator
 	 * @return a random prime between minValue and MaxValue
 	 */
 	public static long randomPrime(long minValue, long maxValue, Random rand)
@@ -151,7 +152,8 @@ public class RSA
 	 * Generates a random long relatively prime to n; it is also less than n
 	 * 
 	 * @author Justin Davis
-	 * @param a long value
+	 * @param n a long value
+	 * @param rand a pseudorandom number generator
 	 * @return a random relatively prime number less than n
 	 */
 	public static long randomRelativePrime(long n, Random rand)
