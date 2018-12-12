@@ -8,7 +8,7 @@ import java.util.*;	// Random number generator
 public class RSA
 {  
 
-	private static final int BLOCK_SIZE = 3; //ARBITRARY, SUBJECT TO CHANGE (max is hypothetically 8)
+	private static final int BLOCK_SIZE = 4; //ARBITRARY, SUBJECT TO CHANGE (max is hypothetically 8)
 
 	//Bergmann's driver
 	public static void main (String args[])
