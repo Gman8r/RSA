@@ -177,8 +177,9 @@ public class RSA
 	{
 		boolean prime = true;
 		//i initially starts at 2 since any number divided by 1 will have a remainder of zero
-		//only checking up to x/2 because anything larger would result in a value less than 2 (some fractional number)
-		for(int i = 2; prime && i <= x/2; i++) {
+		//only need to check up to and including the square root of x
+		double sqrt = Math.sqrt(x);
+		for(int i = 2; prime && i <= sqrt; i++) {
 			if(x%i == 0) { //if the long is divisible by the current value of i, it is not prime
 				prime = false;
 			}
