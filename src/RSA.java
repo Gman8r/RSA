@@ -12,9 +12,10 @@ public class RSA
 
 	//Bergmann's driver
 	public static void main (String args[])
-	{ 	/**
+	{
 		Person Alice = new Person();
 		Person Bob = new Person();
+		Person Alan = new Person();
 
 		String msg = new String ("Bob, let's have lunch."); 	// message to be sent to Bob
 		long []  cipher;
@@ -35,8 +36,36 @@ public class RSA
 		System.out.println ("Bob sends:");
 		show (cipher);
 
-		System.out.println ("Alice decodes and reads: " + Alice.decrypt (cipher));
-		**/
+		System.out.println ("Alice decodes and reads: " + Alice.decrypt (cipher) + "\n");
+		
+		System.out.println("Bob now wants to message Alan.\n");
+		
+		msg = new String("Alice asked me to lunch. I said no. Can you confirm I'm busy?");
+		cipher = Bob.encryptTo(msg, Alan);
+		
+		System.out.println("Message is: " + msg);
+		System.out.println("Bob sends:");
+		show(cipher);
+		
+		System.out.println("Alice intercepts the message to Alan and tries to decrypt.");
+		try {
+			//Alice is attempting to decrypt message to Alan using her private key; should cause an exception
+			System.out.println ("Alice decodes and reads: " + Alice.decrypt (cipher));
+		}
+		catch (Exception e) {
+			//Alice was unable to decrypt the message using her private key
+			System.out.println("Alice was unable to decrypt the message!");
+		}
+		System.out.println ("Alan decodes and reads: " + Alan.decrypt (cipher) + "\n");
+		
+		msg = new String("Sure thing, Bob. If she asks I'll say we have plans.");
+		cipher = Alan.encryptTo (msg, Bob);
+
+		System.out.println ("Message is: " + msg);
+		System.out.println ("Alan sends:");
+		show (cipher);
+
+		System.out.println ("Bob decodes and reads: " + Bob.decrypt (cipher) + "\n");
 	}
 
 
