@@ -47,7 +47,7 @@ public class RSA
 		System.out.println("Bob sends:");
 		show(cipher);
 		
-		System.out.println("Alice intercepts the message to Alan and tries to decrypt.");
+		System.out.println("Alice intercepts the message to Alan and tries to decrypt using her key.");
 		try {
 			//Alice is attempting to decrypt message to Alan using her private key; should cause an exception
 			System.out.println ("Alice decodes and reads: " + Alice.decrypt (cipher));
