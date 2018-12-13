@@ -112,7 +112,9 @@ public class Person
 	{
 		long recipE = recipient.getE();     //recips exp
 		long recipM = recipient.getM();		//recips mod
-                msg += "1";
+		
+		msg += "1";	//add 1 to the string to begin 10* padding
+                
 		int blockArrLength = msg.length() / BLOCK_SIZE;	//arr size
                 if(msg.length() % BLOCK_SIZE > 0)
                 {
@@ -125,8 +127,8 @@ public class Person
 		int ndx = 0;		//keeping track of actual msg index
 		int blockNDX = 0;	//keeping track of blockArr index
                 
-                //adding spaces to serve as padding for now
                 
+				//add 0's until final block is full to finish 10* padding
                 while (msg.length() % BLOCK_SIZE > 0)
                 {
                     msg += "0";
@@ -170,6 +172,7 @@ public class Person
 				buff.append(RSA.longToNChars(plainBlock));
 			//}
 		}
+				//remove 10* padding 
                 String paddedString = buff.toString();
                 if(paddedString.charAt(paddedString.length() - 1) == '0')
                 {
