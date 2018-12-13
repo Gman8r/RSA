@@ -8,7 +8,6 @@
  * December, 2018
  */
 
-import java.lang.*;
 import java.util.Random;
 
 public class Person
@@ -23,6 +22,7 @@ public class Person
 
 	/**
 	 * Access the public encryption exponent
+	 * @author aaron alnutt
 	 * @return public encryption exponent
 	 */
 	public long getE()
@@ -32,6 +32,7 @@ public class Person
 
 	/**
 	 * Access the public modulus
+	 * @author aaron alnutt
 	 * @return public modulus
 	 */
 	public long getM()

@@ -1,5 +1,3 @@
-import java.io.*;
-import java.math.*;
 import java.util.*;	// Random number generator
 
 /**
@@ -311,9 +309,9 @@ public class RSA
 			b = x;
 		}
 		while(r != 0) { //the reaminder still is not equal to zero
-			r = a%b;
-			a = b;
-			b = r;
+			r = a%b; //calculates remainder
+			a = b; //makes b the new a value
+			b = r; //makes r the new b value
 		}
 		return (a == 1) ? true : false; //true if gcd is 1, or false if it is not
 	}
@@ -369,6 +367,7 @@ public class RSA
 	 * @return a binary String padded with zeros
 	 */
 	private static String addPadding(String bitString) {
+		//adds 0's to the bit String until it is a multiple of 8
 		while(bitString.length()%8 != 0) {
 			bitString = '0' + bitString;
 		}
@@ -386,9 +385,11 @@ public class RSA
 	 */
 	public static long toLong(String msg, int p, int n) {
 		if(n > msg.length()) {
+			//trying to convert more characters than the length of the message
 			throw new IllegalArgumentException("n CANNOT be larger than the length of the message");
 		}
 		if(p+n > msg.length()) {
+			//trying to characters past the end of the message
 			throw new IllegalArgumentException("this n will extend past the length of the String");
 		}
 		String bits = "";
