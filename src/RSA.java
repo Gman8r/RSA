@@ -8,10 +8,8 @@ import java.util.*;	// Random number generator
 public class RSA
 {  
 
-	private static final int BLOCK_SIZE = 4; //ARBITRARY, SUBJECT TO CHANGE (max is hypothetically 8)
-
 	//Bergmann's driver
-	public static void main (String args[])
+	public static void main (String args[]) throws Exception
 	{
 		Person Alice = new Person();
 		Person Bob = new Person();
@@ -387,9 +385,6 @@ public class RSA
 	 * @return the two digit number beginning at position p of msg as a long
 	 */
 	public static long toLong(String msg, int p, int n) {
-		if(n > BLOCK_SIZE) {
-			throw new IllegalArgumentException("n CANNOT be larger than max block size of " + BLOCK_SIZE);
-		}
 		if(n > msg.length()) {
 			throw new IllegalArgumentException("n CANNOT be larger than the length of the message");
 		}
