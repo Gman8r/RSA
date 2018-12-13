@@ -14,6 +14,8 @@ public class Person
 {
         
 	private final int BLOCK_SIZE = 7; // ABSOLUTE MAX BLOCK SIZE IS 7
+	
+	// Min/max values for p and q
 	private final long MIN_PRIME_VAL = (long)Math.ceil(Math.sqrt(Math.pow(256, BLOCK_SIZE))); // Based on min m size, m has to be greater than any possible encrypted block value
 	private final long MAX_PRIME_VAL =  (long)Math.sqrt(Long.MAX_VALUE / 2); // Based on max m size (Long.MAX / 2) since that's how high our program can multiply without overflow
 	
