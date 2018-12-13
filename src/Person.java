@@ -14,7 +14,7 @@ public class Person
 {
         
 	private final int BLOCK_SIZE = 4; //ARBITRARY, SUBJECT TO CHANGE (max is hypothetically 8)
-	private final long MAX_PRIME_VAL =  (long)Math.sqrt(Long.MAX_VALUE / 2);//(long)Math.ceil((long)Math.sqrt((long)Math.pow(256, BLOCK_SIZE))); 
+	private final long MAX_PRIME_VAL =  (long)Math.sqrt(Long.MAX_VALUE / 2);
 	private final long MIN_PRIME_VAL = (long)Math.ceil((long)Math.sqrt(MAX_PRIME_VAL));
 	private long publicKey;
 	private long privateKey;
@@ -41,7 +41,7 @@ public class Person
 	}
 
 	/**
-	 *  Used to test public-key crypto-system, RSA
+	 * Used to test public-key crypto-system, RSA
 	 * @author aaron alnutt
 	 */
 	public Person()
@@ -54,14 +54,12 @@ public class Person
                 Random rand = new Random();
                 p = RSA.randomPrime(MIN_PRIME_VAL, MAX_PRIME_VAL, rand);
                 q = RSA.randomPrime(MIN_PRIME_VAL, MAX_PRIME_VAL, rand);
-                System.out.println("min: " + MIN_PRIME_VAL + ", max:" + MAX_PRIME_VAL);
                 while(p == q) //just in case
                 {
                         q = RSA.randomPrime(MIN_PRIME_VAL, MAX_PRIME_VAL, rand);
                 }
 
-                //System.out.println("p: " + p + ", q:" + q);
-                publicMod = p * q;   //TODO: need to add overflow check when dealing with larger primes
+                publicMod = p * q;   
                 publicKey = RSA.randomRelativePrime((p - 1) * (q - 1), rand);
                
                 if(lcm((p - 1), (q - 1)) % (publicKey - 1) != 0)
@@ -72,7 +70,6 @@ public class Person
             long privateHelper = (p-1) * (q-1);
                 
             privateKey = RSA.modInverse(publicKey, privateHelper);    // d = e-1 (mod (p-1)*(q-1))
-            System.out.println("priv" + privateKey + ", pub: " + p + " & " + q + " is " + publicMod + " with key " + publicKey);
         }
 
 	/**
@@ -122,16 +119,6 @@ public class Person
 		}
 
 		return blockArr;
-
-		//OLD
-		//char first, second;
-
-		//for(int i = 0; i < msg.length; i+=2)
-		//{
-		//	first = msg.charAt(i);
-		//	second = msg.charAt(i + 1);
-
-		//}
 	}
         
         private long lcm(long x, long y)
