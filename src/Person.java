@@ -65,15 +65,30 @@ public class Person
                 publicMod = p * q;   
                 publicKey = RSA.randomRelativePrime((p - 1) * (q - 1), rand);
                
-                if(lcm((p - 1), (q - 1)) % (publicKey - 1) != 0)
+                if(!isKeyDegenerate(p, q))
                 {
-                    degenerate = false; //they arent degenerate, break out
+                    degenerate = false; //they aren't degenerate, break out
                 }
             }
             long privateHelper = (p-1) * (q-1);
                 
             privateKey = RSA.modInverse(publicKey, privateHelper);    // d = e-1 (mod (p-1)*(q-1))
         }
+	
+	/**
+	 * Determines if a key is degenerate based on its p and q
+	 * @param p first prime
+	 * @param q second prime
+	 * @return whether the key is degenerate
+	 * @author aaron alnutt
+	 */
+	private boolean isKeyDegenerate(long p, long q)
+	{
+		long p1 = p - 1;
+		long q1 = q - 1;
+		long lcm = (p1 * q1) / (RSA.gcd(p1, q1)); // least common multiple is the product divided by the gcd
+		return (lcm % (publicKey - 1)) == 0;	// return if their lcm divides into m-1
+	}
 
 	/**
 	 * Encrypt a plain text message to recipient.
@@ -123,20 +138,6 @@ public class Person
 
 		return blockArr;
 	}
-        
-        private long lcm(long x, long y)
-        {
-            return (x * y) / (gcd(x, y));
-        }
-        
-        private long gcd(long x, long y)
-        {
-            if(y == 0)
-            {
-                return x; 
-            }
-            return gcd(y, x  % y);
-        }
 
 	/**
 	 * Decrypt the cipher text

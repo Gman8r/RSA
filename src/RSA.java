@@ -95,7 +95,7 @@ public class RSA
 		LocalTime startTime = LocalTime.now();
 		cipher = Alice.encryptTo(hamText, Bob);
 		Duration elapsedTime = Duration.between(startTime, LocalTime.now());
-		System.out.println("Encrypted in " + elapsedTime.toMillis() + "ms. Encryption is " + cipher.length);
+		System.out.println("Encrypted in " + elapsedTime.toMillis() + "ms. Encryption is " + cipher.length + " blocks long.");
 		
 		// Format the encrypted longs and write to a file
 		String cipherString = Arrays.stream(cipher)
@@ -373,8 +373,6 @@ public class RSA
 
 	/**
 	 * Determine whether or not two longs are relative prime.
-	 * This means their gcd is 1.
-	 * This method uses the Euclidean Algorithm to determine the gcd.
 	 * 
 	 * @author Justin Davis
 	 * @param x one long
@@ -383,17 +381,31 @@ public class RSA
 	 */
 	private static boolean isRelativelyPrime(long x, long n)
 	{
-		long a = x, b = n, r = 2; //r initially set to 2 so it can enter the loop
-		if(x < n) { //n is larger; swap the values to perform gcd
-			a = n;
+		return gcd(x, n) == 1;	//two numbers are relatively prime if their gcd is 1 
+	}
+	
+	/**
+	 * Determine greatest common divisor of two numbers
+	 * This method uses the Euclidean Algorithm to determine the gcd.
+	 * 
+	 * @author Justin Davis
+	 * @param x one long
+	 * @param y another long
+	 * @return the greatest common divisor
+	 */
+	public static long gcd(long x, long y)
+	{
+		long a = x, b = y, r = 2; //r initially set to 2 so it can enter the loop
+		if(x < y) { //n is larger; swap the values to perform gcd
+			a = y;
 			b = x;
 		}
-		while(r != 0) { //the reaminder still is not equal to zero
+		while(r != 0) { //the remainder still is not equal to zero
 			r = a%b; //calculates remainder
 			a = b; //makes b the new a value
 			b = r; //makes r the new b value
 		}
-		return (a == 1) ? true : false; //true if gcd is 1, or false if it is not
+		return a;
 	}
 
 	/**
