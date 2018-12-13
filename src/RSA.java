@@ -1,4 +1,15 @@
-import java.util.*;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.io.Reader;
+import java.time.Duration;
+import java.time.LocalTime;
+import java.util.Arrays;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 /**
  * Implementation of the RSA public-key algorithm.
@@ -65,9 +76,76 @@ public class RSA
 		show (cipher);
 
 		System.out.println ("Bob decodes and reads: " + Bob.decrypt (cipher) + "\n");
+		
+		
+		// Hamlet encryption process
+		System.out.println("Alice now wants to securely send a copy of the play Hamlet.\n");
+		System.out.println("Encrypting Hamlet to Bob");
+		
+		// Read Hamlet from Hamlet.txt
+		FileInputStream hamStream = null;
+		try {
+			hamStream = new FileInputStream("src/Hamlet.txt");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		String hamText = readStream(hamStream);
+		
+		// Encrypt the resulting string and log how long it takes
+		LocalTime startTime = LocalTime.now();
+		cipher = Alice.encryptTo(hamText, Bob);
+		Duration elapsedTime = Duration.between(startTime, LocalTime.now());
+		System.out.println("Encrypted in " + elapsedTime.toMillis() + "ms. Encryption is " + cipher.length);
+		
+		// Format the encrypted longs and write to a file
+		String cipherString = Arrays.stream(cipher)
+		        .mapToObj(String::valueOf)
+		        .collect(Collectors.joining(" "));
+		String outputFile = "src/HamletEncr.txt";
+		writeToFile(cipherString, outputFile);
+		System.out.println("Hamlet encryption wrote to " + outputFile);
+
+		// Have Bob decrypt Hamlet from Alice and log how long it takes
+		System.out.println("Bob decrypts Hamlet");
+		startTime = LocalTime.now();
+		String hamletDecr = Bob.decrypt(cipher);
+		elapsedTime = Duration.between(startTime, LocalTime.now());
+		System.out.println("Decrypted in " + elapsedTime.toMillis() + "ms.");
+		
+		// Write decryption to file
+		outputFile = "src/HamletDecr.txt";
+		writeToFile(hamletDecr, outputFile);
+		System.out.println("Hamlet decryption wrote to " + outputFile);
+	}
+	
+	// Shortcut to write all text to a file, for driver testing purposes only
+	private static void writeToFile(String str, String fileName)
+	{
+		try (PrintWriter out = new PrintWriter(fileName)) {
+		    out.print(str);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 
+	// Shortcut to read all text from a file, for driver testing purposes only
+	private static String readStream(InputStream is) {
+	    StringBuilder sb = new StringBuilder(512);
+	    try {
+	        Reader r = new InputStreamReader(is, "UTF-8");
+	        int c = 0;
+	        while ((c = r.read()) != -1) {
+	            sb.append((char) c);
+	        }
+	    } catch (IOException e) {
+	        throw new RuntimeException(e);
+	    }
+	    return sb.toString();
+	}
 
+	
+	// Real project code starts below
+	
 
 	/**
 	 * Calculates modular inverse using the Extended Euclidean Algorithm
