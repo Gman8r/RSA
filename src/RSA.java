@@ -1,7 +1,10 @@
-import java.util.*;	// Random number generator
+import java.util.*;
 
 /**
- * TODO Class Documentation
+ * Implementation of the RSA public-key algorithm.
+ * 
+ * @author brian intile, justin davis, aaron alnutt
+ * @version December 2018
  */
 public class RSA
 {  

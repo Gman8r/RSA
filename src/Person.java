@@ -5,7 +5,7 @@
  * Provide access to the public key only.
  *
  * @author brian intile, justin davis, aaron alnutt
- * December, 2018
+ * @version December 2018
  */
 
 import java.util.Random;
