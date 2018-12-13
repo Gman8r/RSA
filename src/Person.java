@@ -13,9 +13,10 @@ import java.util.Random;
 public class Person
 {
         
-	private final int BLOCK_SIZE = 4; //ARBITRARY, SUBJECT TO CHANGE (max is hypothetically 8)
-	private final long MAX_PRIME_VAL =  (long)Math.sqrt(Long.MAX_VALUE / 2);
-	private final long MIN_PRIME_VAL = (long)Math.ceil(Math.sqrt(Math.pow(256, BLOCK_SIZE)));
+	private final int BLOCK_SIZE = 7; // ABSOLUTE MAX BLOCK SIZE IS 7
+	private final long MIN_PRIME_VAL = (long)Math.ceil(Math.sqrt(Math.pow(256, BLOCK_SIZE))); // Based on min m size, m has to be greater than any possible encrypted block value
+	private final long MAX_PRIME_VAL =  (long)Math.sqrt(Long.MAX_VALUE / 2); // Based on max m size (Long.MAX / 2) since that's how high our program can multiply without overflow
+	
 	private long publicKey;
 	private long privateKey;
 	private long publicMod;
@@ -169,7 +170,7 @@ public class Person
                     paddedString = paddedString.substring(0, paddedString.length() - 1);
                 }
                 else{ //there was no 0 or 1 so don't try to remove padding
-                    throw new Exception("given cipher is not in the correct format");
+                    throw new Exception("Attempted decryption is not in the correct format: " + buff.toString());
                 }
                 
 		return paddedString;
