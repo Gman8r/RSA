@@ -15,7 +15,7 @@ public class Person
         
 	private final int BLOCK_SIZE = 4; //ARBITRARY, SUBJECT TO CHANGE (max is hypothetically 8)
 	private final long MAX_PRIME_VAL =  (long)Math.sqrt(Long.MAX_VALUE / 2);
-	private final long MIN_PRIME_VAL = (long)Math.ceil((long)Math.sqrt(MAX_PRIME_VAL));
+	private final long MIN_PRIME_VAL = (long)Math.ceil(Math.sqrt(Math.pow(256, BLOCK_SIZE)));
 	private long publicKey;
 	private long privateKey;
 	private long publicMod;
