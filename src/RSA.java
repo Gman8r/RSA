@@ -62,7 +62,7 @@ public class RSA
 			//Alice is attempting to decrypt message to Alan using her private key; should cause an exception
 			System.out.println ("Alice decodes and reads: " + Alice.decrypt (cipher));
 		}
-		catch (Exception e) {
+		catch (InvalidDecryptionException e) {
 			//Alice was unable to decrypt the message using her private key
 			System.out.println("Alice was unable to decrypt the message!");
 		}

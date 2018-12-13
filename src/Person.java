@@ -145,7 +145,7 @@ public class Person
 	 * @return plain text of the encrypted message
 	 * @author aaron alnutt
 	 */
-	public String decrypt(long[] message) throws Exception
+	public String decrypt(long[] message) throws InvalidDecryptionException
 	{
 		long currentBlock = 0;
 		long plainBlock = 0;
@@ -173,7 +173,7 @@ public class Person
                     paddedString = paddedString.substring(0, paddedString.length() - 1);
                 }
                 else{ //there was no 0 or 1 so don't try to remove padding
-                    throw new Exception("Attempted decryption is not in the correct format: " + buff.toString());
+                    throw new InvalidDecryptionException("Attempted decryption is not in the correct format: " + buff.toString());
                 }
                 
 		return paddedString;
