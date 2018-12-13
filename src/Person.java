@@ -12,12 +12,23 @@ import java.util.Random;
 
 public class Person
 {
-        
-	private final int BLOCK_SIZE = 7; // ABSOLUTE MAX BLOCK SIZE IS 7
+	// Edit these two values to switch modes
+	public static final Mode MODE = Mode.SIZE_MODE;	// Change this to change encryption mode. SIZE_MODE allows larger block sizes and saves space, while SPEED_MODE runs faster
+	public static final int BLOCK_SIZE = 7; // IMPORTANT: Max possible block size is 7 in SIZE_MODE, 3 in SPEED_MODE
 	
-	// Min/max values for p and q
-	private final long MIN_PRIME_VAL = (long)Math.ceil(Math.sqrt(Math.pow(256, BLOCK_SIZE))); // Based on min m size, m has to be greater than any possible encrypted block value
-	private final long MAX_PRIME_VAL =  (long)Math.sqrt(Long.MAX_VALUE / 2); // Based on max m size (Long.MAX / 2) since that's how high our program can multiply without overflow
+	public enum Mode
+	{
+		SPEED_MODE,
+		SIZE_MODE
+	}
+	
+	// Min/max values for p and q: These are calculated appropriately and don't need to be changed when changing modes.
+	// Both values are the square root of the min/max sizes for m 
+	private final long MIN_PRIME_VAL = (long)Math.ceil(Math.sqrt(Math.pow(256, BLOCK_SIZE))); // m has to be greater than any possible block value (256 ^ BLOCK_SIZE)
+	
+	private final long MAX_PRIME_VAL = (MODE == Mode.SIZE_MODE) // Ternary operation: Max p and q depends on our current mode
+			? (long)Math.floor(Math.sqrt(Long.MAX_VALUE / 2)) // SIZE_MODE: m can go up to Long.MAX/2
+			: (long)Math.floor(Math.sqrt(Math.sqrt(Long.MAX_VALUE))); // SIZE_MODE: m can go up to sqrt(Long.MAX) 
 	
 	private long publicKey;
 	private long privateKey;

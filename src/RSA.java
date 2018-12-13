@@ -20,9 +20,12 @@ import java.util.stream.Collectors;
 public class RSA
 {  
 
-	//Bergmann's driver
+	//Bergmann's driver (edited)
 	public static void main (String args[]) throws Exception
 	{
+		System.out.println("Running RSA in " + Person.MODE + " with block size " + Person.BLOCK_SIZE);
+		System.out.println("Mode and block size can be changed in the Person class.\n");
+		
 		Person Alice = new Person();
 		Person Bob = new Person();
 		Person Alan = new Person();
@@ -149,7 +152,7 @@ public class RSA
 
 	/**
 	 * Calculates modular inverse using the Extended Euclidean Algorithm
-	 * <br>x and m must be relatively prime to each other!
+	 * <br>x and m must be relatively prime
 	 * @author Brian Intile
 	 * @param x The number to find the inverse of
 	 * @param m	The mod to work in
@@ -270,7 +273,8 @@ public class RSA
 
 	/**
 	 * Algorithm that performs modular multiplication and mitigates overflow
-	 * <br>The max value for a, b, and m is now (long.MAX_VALUE / 2) instead of (sqrt(long.MAX_VALUE)) if we were to directly multiply
+	 * <br>If Person.MODE is set to SIZE_MODE, this will use an algorithm that allow us to multiply long values up to Long.MAX/2
+	 * <br>If Person.MODE is set to SPEED_MODE, this simply performs regular multiplication and mods it by m (only allows values up to sqrt(Long.MAX) )
 	 * @author Brian Intile
 	 * @param a The first number to multiply (mod m)
 	 * @param b The second number to multiply (mod m)
@@ -279,6 +283,13 @@ public class RSA
 	 */
 	public static long modMult(long a, long b, long m)
 	{
+		if (Person.MODE != Person.Mode.SIZE_MODE)
+		{
+			// If we're using speed mode, use regular multiplication
+			return (a * b) % m;
+		}
+		
+		// If we're in size mode, use this method
 		long result = 0;
 		while(b > 0)
 		{
